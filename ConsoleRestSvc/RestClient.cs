@@ -20,10 +20,8 @@ namespace ConsoleRestSvc
             request.Method = "GET";
             request.ContentType = "application/json";
 
-
-            try
-            {
-                // get the response
+            try  // get the response
+            {              
                 WebResponse webResponse = request.GetResponse();
                 Stream webStream = webResponse.GetResponseStream();
                 StreamReader responseReader = new StreamReader(webStream);
@@ -31,7 +29,6 @@ namespace ConsoleRestSvc
 
                 responseReader.Close();
                 return response;
-
             }
             catch (WebException we)
             {
@@ -40,10 +37,11 @@ namespace ConsoleRestSvc
             }
             catch (Exception ex)
             {
-                // no need to do anything special here....
+                // hier moet niks speciaals gebeuren
                 return null;
             }
         }
+
         public T Deserialize<T>(string json)
         {
             T obj = Activator.CreateInstance<T>();
@@ -54,6 +52,7 @@ namespace ConsoleRestSvc
             ms.Close();
             return obj;
         }
+
         public string Serialize<T>(T obj)
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());

@@ -21,14 +21,11 @@ namespace ConsoleRestSvc
         public void updatadatabase(string s, int userid)
         {
             string querry ="UPDATE Producent.unitdata SET productie ='"+ s+"' WHERE unitID = '"+userid+"'";
-            //string querry = "select productie from Producent.unitdata where unitID= ";^//moet ergens anders
             Executequerry(querry);
         }
 
-
         public string getProductieDatabase(string userid)
-        {
-            
+        {            
             string querry = "select productie from Producent.unitdata where unitID= '"+userid+"'";
             Executequerry(querry);
             string iets = reader(querry, "productie");
@@ -37,7 +34,6 @@ namespace ConsoleRestSvc
 
         public string getPrijsDatabase(string userid)
         {
-
             string querry = "select prijs from Producent.unitdata where unitID= '" + userid + "'";
             Executequerry(querry);
             return reader(querry, "prijs");
@@ -45,12 +41,10 @@ namespace ConsoleRestSvc
 
         public int getMaxdatadatabase()
         {
-
             string querry = "SELECT max(unitID) FROM Producent.unitdata";
             Executequerry(querry);
             return Convert.ToInt32( reader(querry, "max(unitID)"));
         }
-
 
         private void openConnection()
         {
@@ -58,43 +52,30 @@ namespace ConsoleRestSvc
             {
                 myConnection.Open();
             }
-
         }
-
 
         private void Executequerry(string query)
         {
-
             try
             {
-
                 openConnection();
                 command = new MySqlCommand(query, myConnection);
 
                 if (command.ExecuteNonQuery() == 1)
                 {
                     // querry gedaan
-
                 }
                 else
                 {
                     //query niet gedaan
-
                 }
 
             }
             catch (Exception ex)
-            {
+            {}
 
-               // MessageBox.Show(ex.Message);
-            }
             finally { myConnection.Close(); }
-
-
-
-
         }
-
 
         private string reader(string query, string zoek)
         {
@@ -108,21 +89,15 @@ namespace ConsoleRestSvc
                 while (reader.Read())
                 {
                     value = reader[zoek].ToString();
-
                 }
                 reader.Close();
             }
             catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                myConnection.Close();
-            }
+            {}
+
+            finally{myConnection.Close();}
 
             return value;
         }
     }
-
 }

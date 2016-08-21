@@ -121,6 +121,7 @@ namespace ConsoleRestSvc
         //    comm.Connection.Close();
 
         //}
+
         public Productie GetData(string s)
         {
             MySqlCommand comm = new MySqlCommand();
@@ -131,8 +132,7 @@ namespace ConsoleRestSvc
             string sql = @"SELECT unitID, productie, prijs from Producent.unitdata where unitID=@id";
             comm.CommandText = sql;
                 comm.CommandTimeout = 10000;
-            
-                
+                          
                 comm.Parameters.Add("@id", MySqlDbType.VarChar, 50);
                 comm.Parameters["@id"].Value = s;
                 comm.Parameters["@id"].IsNullable = false;
@@ -143,13 +143,13 @@ namespace ConsoleRestSvc
                 while (cursor.Read())
                 {
                     p.id = (int)cursor["unitID"];
-                    //p.tijdstip = (int)cursor["tijdstip"];
                     p.productie = (int)cursor["productie"];
                     p.prijs = (int)cursor["prijs"];
                 }
                 comm.Connection.Close();
             return p;
         }
+
         public T Deserialize<T>(string json)
         {
             T obj = Activator.CreateInstance<T>();

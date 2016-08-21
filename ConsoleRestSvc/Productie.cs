@@ -9,7 +9,6 @@ namespace ConsoleRestSvc
     public class Productie
     {
         public int id;
-        //public int tijdstip;
         public int productie;
         public int prijs;
     }
